@@ -1,19 +1,28 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --card-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
+  --text: #4d4957;
+  --text-h: #15131a;
+  --bg: #f7f6fa;
+  --border: #e4e1ea;
+  --card-bg: #fff;
+  --accent: #8a2be2;
+  --accent-border: rgba(138, 43, 226, 0.5);
+  --tag-bg: #efeaf8;
+  --tag-text: #4a2c80;
+  --button-bg: #15131a;
+  --button-text: #fff;
+  --code-bg: #16141c;
+  --code-text: #b9b4c6;
+  --code-key: #c792ff;
+  --code-str: #f0c674;
+  --bubble-bot: rgba(21, 19, 26, 0.85);
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    rgba(21, 19, 26, 0.1) 0 12px 24px -8px, rgba(21, 19, 26, 0.06) 0 4px 8px -2px;
 
-  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --display: "Bricolage Grotesque", system-ui, sans-serif;
+  --sans: "Geist", system-ui, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  font: 16px/150% var(--sans);
   color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
@@ -21,24 +30,24 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --card-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
+    --text: #a8a3b3;
+    --text-h: #f3f1f7;
+    --bg: #121117;
+    --border: #2c2a35;
+    --card-bg: #1b1a22;
+    --accent: #7b2fd0;
+    --accent-border: rgba(176, 124, 255, 0.55);
+    --tag-bg: rgba(167, 112, 255, 0.16);
+    --tag-text: #cdb4ff;
+    --button-bg: #f3f1f7;
+    --button-text: #15131a;
+    --code-bg: #0c0b10;
     --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+      rgba(0, 0, 0, 0.45) 0 12px 24px -8px, rgba(0, 0, 0, 0.3) 0 4px 8px -2px;
   }
 }
 
@@ -53,8 +62,10 @@ body {
 h1,
 h2,
 h3 {
-  font-weight: 500;
+  font-family: var(--display);
+  font-weight: 700;
   color: var(--text-h);
+  margin: 0;
 }
 
 p {
@@ -66,66 +77,81 @@ a {
 }
 
 #app {
-  width: 800px;
+  width: 1160px;
   max-width: 100%;
   margin: 0 auto;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
-}
-
-.hero {
-  text-align: center;
-  padding: 64px 0 40px;
-}
-
-.hero h1 {
-  font-size: 48px;
-  letter-spacing: -1.4px;
-  margin: 0 0 12px;
+  gap: 64px;
+  padding: 0 28px;
 
   @media (max-width: 640px) {
-    font-size: 34px;
+    gap: 48px;
+    padding: 0 16px;
   }
 }
 
-.tagline {
-  font-size: 18px;
-  max-width: 520px;
-  margin: 0 auto;
-}
-
-.links {
-  margin-top: 24px;
+.hero {
+  padding-top: 96px;
   display: flex;
-  justify-content: center;
-  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+
+  @media (max-width: 640px) {
+    padding-top: 56px;
+  }
 }
 
-.links a {
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 640px;
+}
+
+.hero h1 {
+  font-weight: 800;
+  font-size: clamp(52px, 9vw, 112px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+.tagline {
+  font-size: 19px;
+  text-wrap: pretty;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--button-bg);
+  color: var(--button-text);
   text-decoration: none;
-  font-size: 15px;
-  border-radius: 6px;
-  padding: 8px 16px;
-  border: 1px solid var(--border);
-  transition: box-shadow 0.3s;
+  font-weight: 500;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
-.links a:hover {
+.github-link:hover {
   box-shadow: var(--shadow);
+  transform: translateY(-2px);
 }
 
 main {
   flex: 1;
-  border-top: 1px solid var(--border);
-  padding: 40px 0;
+  padding-bottom: 32px;
 }
 
 .toolbox h2 {
-  font-size: 26px;
-  letter-spacing: -0.3px;
-  margin-bottom: 20px;
+  font-size: 28px;
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
 }
 
 .project-list {
@@ -133,42 +159,114 @@ main {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr));
+  gap: 24px;
 }
 
 .project-card {
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 20px;
   background: var(--card-bg);
-  transition: box-shadow 0.3s, border-color 0.3s;
+  overflow: hidden;
+  transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
 }
 
 .project-card:hover {
   box-shadow: var(--shadow);
   border-color: var(--accent-border);
+  transform: translateY(-3px);
 }
 
-.project-card a {
-  display: block;
-  padding: 20px;
+.project-card > a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   text-decoration: none;
 }
 
-.project-card h3 {
-  font-size: 18px;
-  margin: 0 0 8px;
-  color: var(--accent);
+.preview {
+  height: 240px;
+  padding: 28px 40px;
+  display: flex;
 }
 
-.project-card p {
+.preview-code {
+  background: var(--code-bg);
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-code pre {
+  margin: 0;
+  font: 15px/1.75 var(--mono);
+  color: var(--code-text);
+}
+
+.tok-key {
+  color: var(--code-key);
+}
+
+.tok-str {
+  color: var(--code-str);
+}
+
+.preview-chat {
+  background: var(--accent);
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.bubble {
+  padding: 8px 14px;
   font-size: 15px;
-  line-height: 140%;
+  max-width: 80%;
+}
+
+.bubble-user {
+  align-self: flex-end;
+  border-radius: 16px 16px 4px 16px;
+  background: #fff;
+  color: #15131a;
+}
+
+.bubble-bot {
+  align-self: flex-start;
+  border-radius: 16px 16px 16px 4px;
+  background: var(--bubble-bot);
+  color: #fff;
+}
+
+.project-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px 28px 28px;
+}
+
+.project-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.project-card h3 {
+  font-size: 26px;
+  letter-spacing: -0.4px;
+}
+
+.project-kind {
+  flex: none;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
 }
 
 footer {
   border-top: 1px solid var(--border);
-  padding: 24px 0;
-  text-align: center;
+  padding: 24px 0 40px;
   font-size: 14px;
 }
